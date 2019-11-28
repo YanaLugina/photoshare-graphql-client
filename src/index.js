@@ -1,9 +1,9 @@
 import React from 'react';
-import { render } from 'react-dom';
+import {render} from 'react-dom';
 import App from './App';
-import { ApolloProvider } from 'react-apollo';
-import ApolloClient, { InMemoryCache } from 'apollo-boost';
-import { persistCache } from "apollo-cache-persist";
+import {ApolloProvider} from 'react-apollo';
+import ApolloClient, {InMemoryCache} from 'apollo-boost';
+import {persistCache} from "apollo-cache-persist";
 
 const cache = new InMemoryCache();
 persistCache({
@@ -29,7 +29,7 @@ const client = new ApolloClient({
     }
 });
 
-console.log(localStorage['apollo-cache-persist']);
+//console.log(localStorage['apollo-cache-persist']);
 render (
     <ApolloProvider client={client}>
         <App />
