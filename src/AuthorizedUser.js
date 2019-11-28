@@ -18,17 +18,13 @@ const Me = ({ logout, requestCode, singingIn }) => {
     return (
         <Query query={ROOT_QUERY} >
             {
-                ({ data, loading }) =>
-                {
-                    if(data) {
-                        return (<CurrentUser avatar={data.me.avatar} name={data.me.name} logout={logout}/>);
-                    }
-                    return ( loading ? <p>loading...</p> :
-                        <button onClick={requestCode} disabled={singingIn}>
+                ({ data, loading }) => data.me
+                    ? <CurrentUser {...data.me} logout={logout}/>
+                    : loading
+                        ? <p>loading...</p>
+                        : <button onClick={requestCode} disabled={singingIn}>
                                 Singing In with gitHub {JSON.stringify(data.me)}
-                        </button>);
-
-                 }
+                          </button>
             }
         </Query>
     );
@@ -50,7 +46,7 @@ class AuthorizedUser extends Component {
     authorizationComplete = (cache, { data }) => {
         localStorage.setItem('token', data.githubAuth.token);
         this.props.history.replace('/');
-        //this.setState({ singingIn: false });
+        this.setState({ singingIn: false });
     };
 
     componentDidMount() {
